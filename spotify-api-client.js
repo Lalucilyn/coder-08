@@ -54,10 +54,11 @@ export const getUserArtistsPromise = () => {
       }
 
       const artistas = result.artists.items.map (
-        ({name: nombre, images, followers: {total: seguidores}}) => {
+        ({name: nombre, images, id, followers: {total: seguidores}}) => {
           return {
             nombre,
             seguidores,
+            id,
             imagen: images[0].url,
           };
         }
@@ -66,6 +67,20 @@ export const getUserArtistsPromise = () => {
       return artistas;
     });
 };
+
+export const fetchTopTracks = (id) => {
+ return fetch(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=US`,{
+   headers: {
+     Authorization: `Bearer ${token}`,
+   },
+ })
+ .then( result => {
+    return result.json()
+  })
+ .then(({tracks}) => {
+   return tracks.map(({name}) => name)
+ })
+}
 
 export const getUserArtistsAsync = async accessToken => {
   const response = await fetch (

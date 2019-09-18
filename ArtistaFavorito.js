@@ -1,11 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Button } from 'react-native'
+import {fetchTopTracks} from './spotify-api-client'
 
 export default class ArtistaFavorito extends React.Component {
+   // Parte 1: traer los top tracks y mostrarlos en un alert
+   fetchArtistInfo = (id) => {
+    fetchTopTracks(id).then(result => {
+      alert(result)
+    })
+  }
+
   render() {
     const {
-      artista: { nombre, imagen, seguidores },
+      artista: { nombre, imagen, seguidores, id },
     } = this.props
 
     return (
@@ -14,6 +22,7 @@ export default class ArtistaFavorito extends React.Component {
         <View style={styles.dataContainer}>
           <Text style={styles.nombre}>{nombre}</Text>
           <Text style={styles.seguidores}>🌟 {seguidores}</Text>
+          <Button title="Top tracks" onPress = {() => this.fetchArtistInfo(id)}/>
         </View>
       </View>
     )

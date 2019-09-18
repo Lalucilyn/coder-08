@@ -6,7 +6,7 @@ import ArtistaFavorito from './ArtistaFavorito';
 export default class App extends React.Component {
   state = {
     result: null,
-    loggedIn: false,
+    loggedIn: true,
   };
 
   // NOTA: esta sería la versión de `componentDidMount` usando async/await
