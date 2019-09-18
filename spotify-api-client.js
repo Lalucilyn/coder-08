@@ -1,7 +1,7 @@
 import {AuthSession} from 'expo';
 import * as SecureStore from 'expo-secure-store';
 
-const SPOTIFY_CLIENT_ID = 'bb223824c29844c7999ac5bc0ab7fdff';
+const SPOTIFY_CLIENT_ID = 'f20fd9e5ae2147e0bd999ae5cc9b6597';
 const SECURE_STORE_ACCESS_TOKEN_KEY = 'spotifyAccessToken';
 
 let token;
