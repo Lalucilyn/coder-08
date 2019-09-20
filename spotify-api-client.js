@@ -82,6 +82,24 @@ export const fetchTopTracks = (id) => {
  })
 }
 
+export const fetchArtistsAlbums = (id) => {
+ return fetch(`https://api.spotify.com/v1/artists/${id}/albums`,{
+   headers: {
+     Authorization: `Bearer ${token}`,
+   },
+ })
+ .then( result => {
+    return result.json()
+  })
+ .then(({items}) => {
+    let albums = items.map(({name, images, release_date, total_tracks}) => {
+      let image = images[0]
+      return {name, image, total_tracks}
+    })
+    return albums
+ })
+}
+
 export const getUserArtistsAsync = async accessToken => {
   const response = await fetch (
     'https://api.spotify.com/v1/me/following?type=artist',

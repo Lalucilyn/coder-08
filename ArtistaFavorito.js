@@ -1,13 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, Image, Button } from 'react-native'
-import {fetchTopTracks} from './spotify-api-client'
+import {fetchTopTracks, fetchArtistsAlbums} from './spotify-api-client'
 
 export default class ArtistaFavorito extends React.Component {
+   state = {
+    albums: []
+   }
+
    // Parte 1: traer los top tracks y mostrarlos en un alert
    fetchArtistInfo = (id) => {
     fetchTopTracks(id).then(result => {
       alert(result)
+    })
+  }
+
+    // Parte 2: traer los álbumes y mostrarlos en componentes
+   fetchArtistsAlbums = (id) => {
+    fetchArtistsAlbums(id).then(result => {
+      this.setState({albums: result})
+      console.warn(this.state)
     })
   }
 
@@ -22,7 +34,12 @@ export default class ArtistaFavorito extends React.Component {
         <View style={styles.dataContainer}>
           <Text style={styles.nombre}>{nombre}</Text>
           <Text style={styles.seguidores}>🌟 {seguidores}</Text>
-          <Button title="Top tracks" onPress = {() => this.fetchArtistInfo(id)}/>
+          <View style={styles.button}>
+            <Button  title="Top tracks" onPress = {() => this.fetchArtistInfo(id)}/>
+          </View>
+          <View style={styles.button}>
+            <Button color="red" style={styles.button} title="Albums" onPress = {() => this.fetchArtistsAlbums(id)}/>
+          </View>
         </View>
       </View>
     )
@@ -43,7 +60,6 @@ ArtistaFavorito.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
     width: 350,
     backgroundColor: '#F5FCFF',
     alignItems: 'center',
@@ -80,6 +96,10 @@ const styles = StyleSheet.create({
     shadowRadius: 1.5,
     shadowOpacity: 0.4,
     elevation: 2,
+  },
+
+  button: {
+    margin: 10
   },
 
   dataContainer: {

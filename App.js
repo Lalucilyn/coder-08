@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
   _handleAuthButtonPress = () => {
     authorize ().then (loggedIn => {
-      console.warn ('esta logueado?', loggedIn);
+      // console.warn ('esta logueado?', loggedIn);
       this.setState ({loggedIn});
     });
   };
@@ -62,7 +62,7 @@ export default class App extends React.Component {
   render () {
     const {loggedIn, artistas} = this.state;
 
-    console.warn ('artistas', artistas);
+    // console.warn ('artistas', artistas);
 
     return (
       <View style={styles.container}>
