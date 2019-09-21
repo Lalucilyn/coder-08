@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, Image, Button } from 'react-native'
 import {fetchTopTracks, fetchArtistsAlbums} from './spotify-api-client'
-
+import Album from './Album'
 export default class ArtistaFavorito extends React.Component {
    state = {
     albums: []
@@ -29,17 +29,24 @@ export default class ArtistaFavorito extends React.Component {
     } = this.props
 
     return (
-      <View style={[styles.container, styles.conSombra]}>
-        <Image source={{ uri: imagen }} style={styles.imagen} />
-        <View style={styles.dataContainer}>
-          <Text style={styles.nombre}>{nombre}</Text>
-          <Text style={styles.seguidores}>🌟 {seguidores}</Text>
-          <View style={styles.button}>
-            <Button  title="Top tracks" onPress = {() => this.fetchArtistInfo(id)}/>
+      <View style={styles.wrap}>
+        <View style={[styles.container, styles.conSombra]}>
+          <Image source={{ uri: imagen }} style={styles.imagen} />
+          <View style={styles.dataContainer}>
+            <Text style={styles.nombre}>{nombre}</Text>
+            <Text style={styles.seguidores}>🌟 {seguidores}</Text>
+            <View style={styles.button}>
+              <Button  title="Top tracks" onPress = {() => this.fetchArtistInfo(id)}/>
+            </View>
+            <View style={styles.button}>
+              <Button color="red" style={styles.button} title="Albums" onPress = {() => this.fetchArtistsAlbums(id)}/>
+            </View>
           </View>
-          <View style={styles.button}>
-            <Button color="red" style={styles.button} title="Albums" onPress = {() => this.fetchArtistsAlbums(id)}/>
-          </View>
+        </View>
+        <View style={styles.album}>
+        {this.state.albums.map ((album) => (
+             <Album album={album}/>
+        ))}
         </View>
       </View>
     )
@@ -59,6 +66,9 @@ ArtistaFavorito.defaultProps = {
 }
 
 const styles = StyleSheet.create({
+  wrap: {
+    flexDirection: "column"
+  },
   container: {
     width: 350,
     backgroundColor: '#F5FCFF',
@@ -105,4 +115,9 @@ const styles = StyleSheet.create({
   dataContainer: {
     flex: 1,
   },
+  albums: {
+        flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 })
