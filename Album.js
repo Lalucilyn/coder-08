@@ -7,7 +7,7 @@ export default class Album extends React.Component {
     const {
       album: { name, image, total_tracks, release_date, uri },
     } = this.props
-    console.warn(uri)
+    console.warn(`http://${uri}`)
     return (
       <View style={styles.album}>
         <Image source={{ uri: image }} style={styles.image}/>
@@ -16,7 +16,7 @@ export default class Album extends React.Component {
           <Text>{`Tracks: ${total_tracks}`}</Text>
           <Text>{`Date: ${release_date}`}</Text>
           <Text style={{color: 'blue'}}
-            onPress={() => Linking.openURL(uri)}>
+            onPress={() => Linking.openURL(`${uri}`)}>
             Abrir en Spotify
           </Text>
         </View>

@@ -92,9 +92,9 @@ export const fetchArtistsAlbums = (id) => {
     return result.json()
   })
  .then(({items}) => {
-    let albums = items.map(({name, images, release_date, total_tracks, href}) => {
+    let albums = items.map(({name, images, release_date, total_tracks, uri}) => {
       let {url:image} = images[0]
-      return {name, image, total_tracks, href, release_date}
+      return {name, image, total_tracks, uri, release_date}
     })
     return albums
  })
